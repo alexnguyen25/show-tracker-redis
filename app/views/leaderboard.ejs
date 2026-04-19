@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+    <h1>Artist follow leaderboard</h1>
+    <p>Top artists by number of followers (Redis sorted set <code>leaderboard:artists</code>).</p>
+    <table border="1" cellpadding="8" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Artist Name</th>
+          <th>Follow Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (rows && rows.length) { %>
+          <% rows.forEach(function (row) { %>
+            <tr>
+              <td><%= row.rank %></td>
+              <td><%= row.artistName %></td>
+              <td><%= row.followCount %></td>
+            </tr>
+          <% }); %>
+        <% } else { %>
+          <tr>
+            <td colspan="3">No data yet — leaderboard logic not implemented.</td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>
