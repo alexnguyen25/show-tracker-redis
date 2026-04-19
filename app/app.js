@@ -1,6 +1,8 @@
 const path = require('path');
 const express = require('express');
 
+const redis = require('./db/redis');
+const { seedLeaderboard } = require('./seedLeaderboard');
 const leaderboardRoutes = require('./routes/leaderboard');
 
 const app = express();
@@ -11,10 +13,6 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }));
 
-/**
- * GET /
- * TODO: Optional home-page data from MongoDB (getDb() from ./db/mongo).
- */
 app.get('/', (req, res) => {
   res.render('index');
 });
@@ -22,7 +20,11 @@ app.get('/', (req, res) => {
 app.use('/leaderboard', leaderboardRoutes);
 
 async function start() {
-  // TODO: const redis = require('./db/redis'); await redis.connect();
+  if (!redis.isOpen) {
+    await redis.connect();
+  }
+
+  await seedLeaderboard(redis);
 
   app.listen(PORT, () => {
     console.log(`ShowTracker Redis listening on http://localhost:${PORT}`);

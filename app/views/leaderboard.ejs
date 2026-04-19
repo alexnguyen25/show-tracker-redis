@@ -1,30 +1,58 @@
 <%- include('partials/header') %>
     <h1>Artist follow leaderboard</h1>
     <p>Top artists by number of followers (Redis sorted set <code>leaderboard:artists</code>).</p>
+    <% if (typeof error !== 'undefined' && error) { %>
+      <p style="color: crimson;"><strong>Error:</strong> <%= error %></p>
+    <% } %>
     <table border="1" cellpadding="8" cellspacing="0">
       <thead>
         <tr>
           <th>Rank</th>
           <th>Artist Name</th>
           <th>Follow Count</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <% if (rows && rows.length) { %>
           <% rows.forEach(function (row) { %>
+            <% var enc = encodeURIComponent(row.artistName); %>
             <tr>
               <td><%= row.rank %></td>
               <td><%= row.artistName %></td>
               <td><%= row.followCount %></td>
+              <td>
+                <form action="/leaderboard/increment/<%= enc %>" method="post" style="display:inline;">
+                  <button type="submit">+</button>
+                </form>
+                <form action="/leaderboard/decrement/<%= enc %>" method="post" style="display:inline;">
+                  <button type="submit">−</button>
+                </form>
+                <form action="/leaderboard/remove/<%= enc %>" method="post" style="display:inline;">
+                  <button type="submit">Remove</button>
+                </form>
+              </td>
             </tr>
           <% }); %>
         <% } else { %>
           <tr>
-            <td colspan="3">No data yet — leaderboard logic not implemented.</td>
+            <td colspan="4">No artists in the leaderboard yet. Add one below or seed from MongoDB on server start.</td>
           </tr>
         <% } %>
       </tbody>
     </table>
+
+    <h2>Add artist</h2>
+    <form action="/leaderboard/add" method="post">
+      <label for="artistName">Artist name:</label>
+      <input type="text" id="artistName" name="artistName" required>
+      <button type="submit">Add</button>
+    </form>
+
+    <h2>Reset from MongoDB</h2>
+    <form action="/leaderboard/reset" method="post">
+      <button type="submit">Reset</button>
+    </form>
   </main>
 </body>
 </html>
