@@ -179,18 +179,18 @@ npm start
 
 ## Video Demo
 
-[Link to YouTube demo](#) ← replace with your YouTube link
+[YouTube demo](https://youtu.be/3hP2Bh2qq0c)
 
 ---
 
 ## AI Usage
 
-AI (Claude by Anthropic) was used throughout this project for the following:
+AI (Claude Sonnet 4.6 by Anthropic) was used throughout this project for the following:
 
-- **Planning** — breaking down project deliverables into phases and creating a work plan
-- **Redis Data Structure Design** — selecting the sorted set structure, designing the key schema, and justifying the choice over alternatives
-- **Redis Commands** — generating all CRUD commands for the leaderboard sorted set
-- **Node + Express App** — generating the Cursor prompt to scaffold the skeleton, implementing the seeding logic, leaderboard routes, and EJS views
-- **README** — generating documentation in the same style as Projects 1 and 2 using prompts like "generate a readme for my repository making sure it answers all the tasks in the rubric"
+- **Planning** — breaking down project deliverables into phases and creating a work plan with the prompt "Break this rubric down into sections for me to follow"
+- **Redis Data Structure Design** — selecting the sorted set structure, designing the key schema, and justifying the choice over alternatives with the prompt "what redis data structure should i use for my showtracker app and why"
+- **Redis Commands** — checking all CRUD commands for the leaderboard sorted set with the prompt "check all the redis commands i wrote for crud operations on my data structure"
+- **Node + Express App** — building the leaderboard routes, seeding logic, and EJS views, using AI to check my code and fill out boilerplate with prompts like "check if this route is correct" and "fill out the boilerplate for this express route"
+- **README** — generating documentation in the same style as previous projects using prompts like "generate a readme for my repository making sure it answers all the tasks in the rubric"
 
 All AI-generated content was reviewed, tested, and verified before inclusion in the project.
